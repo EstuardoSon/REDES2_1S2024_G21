@@ -1,3 +1,15 @@
+### **Universidad San Carlos de Guatemala**
+### **Facultad de Ingeniería**
+### **Escuela de Ciencias y Sistemas**
+### **Redes de Computadoras 2**
+### **Catedrático: Ing. Allan Alberto Morataya Gómez**
+### **Auxiliar: Eduardo Ixén**
+
+## **Manual Técnico - Práctica 1**
+
+- **Estuardo Gabriel Son Mux – 202003894**
+- **Angel Eduardo Marroquín Canizales – 202003959**
+-----------
 ## Configuration SW1
 
 ```CMD
@@ -148,3 +160,77 @@ do write
 Modo elegido: **Rapid PSVT**
 
 Se eligió este modo debido a que su tiempo de convergencia es con diferencia más rápido que el PSTV en cualquiera de las 3 vlan medidas, lo que a la hora de una falla en alguno de los enlaces activos el tiempo que se necesitara para pasar a otros enlaces sera el minimo posible, siendo de gran beneficio tanto para el colegio como para los clientes.
+
+## Configuración de Seguridad para interfaces asignadas a la VLAN (MAC)
+
+### SW5
+
+```CMD
+!--- Configuración de Seguridad de interfaces
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 000A.4181.091D
+
+interface fastEthernet 0/4
+switchport port-security
+switchport port-security mac-address 00E0.F782.65C4
+```
+
+### SW6
+
+```CMD
+!--- Configuración de Seguridad de interface
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 00E0.A3C6.8895
+```
+
+### SW7
+
+```CMD
+!--- Configuración de Seguridad de interfaces
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 0060.3E7E.C22B
+
+interface fastEthernet 0/4
+switchport port-security
+switchport port-security mac-address 0006.2AD9.4B41 
+```
+
+### SW10
+
+```CMD
+!--- Configuración de Seguridad de interfaces
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 0005.5E1D.471A
+
+interface fastEthernet 0/4
+switchport port-security
+switchport port-security mac-address 0010.11EE.4A4A
+```
+
+### SW11
+
+```CMD
+!--- Configuración de Seguridad de interface
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 00D0.974D.E0A5
+```
+
+### SW12
+
+```CMD
+!--- Configuración de Seguridad de interface
+interface fastEthernet 0/3
+switchport port-security
+switchport port-security mac-address 00E0.B041.85C8
+
+interface fastEthernet 0/4
+switchport port-security
+switchport port-security mac-address 0060.4704.CEB7
+```
+
+
