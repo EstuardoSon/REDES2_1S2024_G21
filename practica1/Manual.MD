@@ -26,6 +26,13 @@ vtp version 2
 vtp domain g21
 vtp mode server
 
+!--- Configuración Rapid-PSTP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1 root primary
+spanning-tree vlan 13 root primary
+spanning-tree vlan 23 root primary
+spanning-tree vlan 33 root primary
+
 do write
 ```
 
@@ -45,6 +52,14 @@ exit
 vtp version 2
 vtp domain g21
 vtp mode client
+
+
+!--- Configuración Rapid-PSTP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1
+spanning-tree vlan 13
+spanning-tree vlan 23
+spanning-tree vlan 33
 
 do write
 ```
@@ -73,6 +88,13 @@ exit
 vtp version 2
 vtp domain g21
 vtp mode client
+
+!--- Configuración Rapid-PSTP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1
+spanning-tree vlan 13
+spanning-tree vlan 23
+spanning-tree vlan 33
 
 do write
 ```
@@ -104,7 +126,25 @@ vtp version 2
 vtp domain g21
 vtp mode client
 
+!--- Configuración Rapid-PSTP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1
+spanning-tree vlan 13
+spanning-tree vlan 23
+spanning-tree vlan 33
+
 do write
 ```
 
 #A: Hace referencia al numero del switch que se esta configurando, en este caso SW6 y SW11.
+
+## Pruebas de convergencia STP
+
+| Escenario | Protocolo Spanning-Tree | Red Primaria | Red Básicos | Red Diversificado |
+| --- | --- | --- | --- | --- |
+| 1 | PVST | 01:03.89 | 00:59.67 | 01:04.28 |
+| 2 | Rapid PVST | 00:07.54 | 00:07.22 | 00:06.84 |
+
+Modo elegido: **Rapid PSVT**
+
+Se eligió este modo debido a que su tiempo de convergencia es con diferencia más rápido que el PSTV en cualquiera de las 3 vlan medidas, lo que a la hora de una falla en alguno de los enlaces activos el tiempo que se necesitara para pasar a otros enlaces sera el minimo posible, siendo de gran beneficio tanto para el colegio como para los clientes.
