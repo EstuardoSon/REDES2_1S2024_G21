@@ -10,11 +10,24 @@
 - **Estuardo Gabriel Son Mux – 202003894**
 - **Angel Eduardo Marroquín Canizales – 202003959**
 -----------
-## Configuration SW1
+## Configuration SW1 (Server)
 
 ```CMD
 !--- Nombre del Hostname
 hostname SW1_G21
+
+!--- Configuracion password
+enable secret redes2grupo21
+
+line console 0
+password redes2grupo21
+login
+exit
+
+line vty 0 15
+password redes2grupo21
+login
+exit
 
 !--- Configuración de las interfaces troncales
 int range fa0/1-5
