@@ -10,6 +10,9 @@
 - **Estuardo Gabriel Son Mux – 202003894**
 - **Angel Eduardo Marroquín Canizales – 202003959**
 -----------
+## Topología
+![Topología](./imagenes/topologia.png)
+
 ## Configuration SW1 (Server)
 
 ```CMD
@@ -172,7 +175,28 @@ do write
 
 Modo elegido: **Rapid PSVT**
 
-Se eligió este modo debido a que su tiempo de convergencia es con diferencia más rápido que el PSTV en cualquiera de las 3 vlan medidas, lo que a la hora de una falla en alguno de los enlaces activos el tiempo que se necesitara para pasar a otros enlaces sera el minimo posible, siendo de gran beneficio tanto para el colegio como para los clientes.
+Se eligió este modo debido a que su tiempo de convergencia es con diferencia más rápido que el PSTV en cualquiera de las 3 vlan medidas, lo que a la hora de una falla en alguno de los enlaces activos, el tiempo que se necesitara para pasar a otros enlaces sera el minimo posible, siendo de gran beneficio tanto para el colegio como para los clientes, manteniendo de esta manera la mayor cantidad de eficiencia y disponibilidad de la red.
+
+### **Prueba de eficiencia al usar PSVT**  
+![Topología](./imagenes/pruebas.png)
+
+## Configuración de STP
+```CMD
+!--- Configuración Rapid-PSTP
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1
+spanning-tree vlan 13
+spanning-tree vlan 23
+spanning-tree vlan 33
+```
+
+## Desactivar DTP
+Automaticamente al configurar el puerto en modo trunk, DTP se desactiva, sin embargo si se desea desactivar antes se puede usar la siguiente configuracion:
+```CMD
+!--- Desactivar DTP
+interface fastEthernet 0/1
+switchport nonegotiate
+```
 
 ## Configuración de Seguridad para interfaces asignadas a la VLAN (MAC)
 
