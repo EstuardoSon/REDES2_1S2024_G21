@@ -4,19 +4,21 @@ enable
 config t
 hostname SW1
 
-vlan 73
-name A
+vlan 63
+name corporativo63
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 73
 no shutdown
 exit
 
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
 interface range f0/9-11
 switchport mode access
-switchport access vlan 73
+switchpor access vlan 63
 no shutdown
 
 exit
@@ -28,23 +30,25 @@ enable
 config t
 hostname MSW1
 
-vlan 73
-name A
-vlan 10
-name B
+vlan 63
+name corporativo63
+vlan 13
+name ventas13
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 73
 no shutdown
 exit
 
-interface vlan 73
-ip address 192.168.73.1 255.255.255.0
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
+interface vlan 63
+ip address 192.168.63.1 255.255.255.0
 no shutdown
 
-interface vlan 10
+interface vlan 13
 ip address 1.0.0.1 255.0.0.0
 no shutdown
 
@@ -57,19 +61,21 @@ enable
 config t
 hostname SW3
 
-vlan 93
-name A
+vlan 63
+name corporativo63
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 93
 no shutdown
 exit
 
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
 interface range f0/9-10
 switchport mode access
-switchport access vlan 93
+switchport access vlan 63
 no shutdown
 
 exit
@@ -81,23 +87,25 @@ enable
 config t
 hostname MSW7
 
-vlan 93
-name A
-vlan 20
-name C
+vlan 63
+name corporativo63
+vlan 23
+name distribucion23
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 93
 no shutdown
 exit
 
-interface vlan 93
-ip address 192.168.93.1 255.255.255.0
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
+interface vlan 63
+ip address 192.168.73.1 255.255.255.0
 no shutdown
 
-interface vlan 20
+interface vlan 23
 ip address 2.0.0.1 255.0.0.0
 no shutdown
 
@@ -110,19 +118,21 @@ enable
 config t
 hostname SW2
 
-vlan 83
-name A
+vlan 63
+name corporativo63
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 83
 no shutdown
 exit
 
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
 interface f0/9
 switchport mode access
-switchport access vlan 83
+switchport access vlan 63
 no shutdown
 
 exit
@@ -134,29 +144,31 @@ enable
 config t
 hostname MSW4
 
-vlan 83
-name A
-vlan 10
-name B
-vlan 20
-name C
+vlan 63
+name corporativo63
+vlan 13
+name ventas13
+vlan 23
+name distribucion23
 
 interface range f0/3-4
 channel-group 1 mode active
-switchport mode trunk
-switchpor trunk allowed vlan 83
 no shutdown
 exit
 
-interface vlan 83
+interface po1
+switchport mode trunk
+switchport trunk allowed vlan 63
+
+interface vlan 63
 ip address 192.168.83.1 255.255.255.0
 no shutdown
 
-interface vlan 10
+interface vlan 13
 ip address 1.0.0.2 255.0.0.0
 no shutdown
 
-interface vlan 20
+interface vlan 23
 ip address 2.0.0.2 255.0.0.0
 no shutdown
 
