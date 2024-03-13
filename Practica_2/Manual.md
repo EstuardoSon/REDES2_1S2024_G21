@@ -22,8 +22,9 @@ hostname SW1
 vlan 63
 name corporativo63
 
+!--- Configuración LACP
+
 interface range f0/3-4
-no switchport access vlan 63
 switchport mode trunk
 switchport trunk allowed vlan 63,13
 channel-group 1 mode active
@@ -31,9 +32,10 @@ no shutdown
 exit
 
 interface po1
-no switchport access vlan 63
 switchport mode trunk
 switchport trunk allowed vlan 63,13
+
+!--- Configuración puertos
 
 interface range f0/9-11
 switchport mode access
@@ -54,11 +56,15 @@ name corporativo63
 vlan 13
 name ventas13
 
+!--- Configuración puertos
+
 interface f0/1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 63,13
 no shutdown
+
+!--- Configuración LACP
 
 interface range f0/3-4
 switchport trunk encapsulation dot1q
@@ -72,6 +78,8 @@ interface po1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 63,13
+
+!--- Configuración interfaces Vlan
 
 interface vlan 63
 ip address 192.168.63.1 255.255.255.0
@@ -101,6 +109,8 @@ hostname SW3
 vlan 63
 name corporativo63
 
+!--- Configuración LACP
+
 interface range f0/3-4
 switchport mode trunk
 switchport trunk allowed vlan 23,63
@@ -111,6 +121,8 @@ exit
 interface po1
 switchport mode trunk
 switchport trunk allowed vlan 23,63
+
+!--- Configuración puertos
 
 interface range f0/9-10
 switchport mode access
@@ -131,6 +143,16 @@ name corporativo63
 vlan 23
 name distribucion23
 
+!--- Configuración puertos
+
+interface f0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 63,23
+no shutdown
+
+!--- Configuración LACP
+
 interface range f0/3-4
 switchport trunk encapsulation dot1q
 switchport mode trunk
@@ -139,16 +161,12 @@ channel-group 1 mode active
 no shutdown
 exit
 
-interface f0/2
-switchport trunk encapsulation dot1q
-switchport mode trunk
-switchport trunk allowed vlan 63,23
-no shutdown
-
 interface po1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 23,63
+
+!--- Configuración interfaces Vlan
 
 interface vlan 63
 ip address 192.168.73.1 255.255.255.0
@@ -177,6 +195,8 @@ hostname SW2
 vlan 63
 name corporativo63
 
+!--- Configuración LACP
+
 interface range f0/3-4
 switchport mode trunk
 switchport trunk allowed vlan 13,23,63
@@ -187,6 +207,8 @@ exit
 interface po1
 switchport mode trunk
 switchport trunk allowed vlan 13,23,63
+
+!--- Configuración puertos
 
 interface f0/9
 switchport mode access
@@ -209,11 +231,7 @@ name ventas13
 vlan 23
 name distribucion23
 
-interface range f0/3-4
-switchport trunk allowed vlan 23,63
-channel-group 1 mode active
-no shutdown
-exit
+!--- Configuración puertos
 
 interface f0/1
 switchport trunk encapsulation dot1q
@@ -227,9 +245,19 @@ switchport mode trunk
 switchport trunk allowed vlan 63,23
 no shutdown
 
+!--- Configuración LACP
+
+interface range f0/3-4
+switchport trunk allowed vlan 23,63
+channel-group 1 mode active
+no shutdown
+exit
+
 interface po1
 switchport mode trunk
 switchport trunk allowed vlan 13,23,63
+
+!--- Configuración interfaces Vlan
 
 interface vlan 63
 ip address 192.168.83.1 255.255.255.0
