@@ -161,12 +161,12 @@ no shutdown
 exit
 
 int vlan 20
-ip add 20.#.21.1 255.255.255.252
+ip add 20.#.21.2 255.255.255.252
 no shutdown
 exit
 
 int vlan 30
-ip add 30.#.21.1 255.255.255.252
+ip add 30.#.21.2 255.255.255.252
 no shutdown
 exit
 ```
