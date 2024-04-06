@@ -349,6 +349,8 @@ vlan 70
 name I
 vlan 71
 name H
+vlan 21
+name Web
 
 ! Configuracion de interfaz de acceso
 int range Gig1/1/2
@@ -361,6 +363,11 @@ switchport mode access
 switchport access vlan 70
 exit
 
+int range Gig1/0/5
+switchport mode access
+switchport access vlan 21
+exit
+
 ! Configuracion de interfaz vlan
 int vlan 70
 ip add 70.0.21.2 255.255.255.252
@@ -369,6 +376,11 @@ exit
 
 int vlan 71
 ip add 70.1.21.2 255.255.255.252
+no shutdown
+exit
+
+int vlan 21
+ip add 21.100.100.1 255.255.255.252
 no shutdown
 exit
 ```
