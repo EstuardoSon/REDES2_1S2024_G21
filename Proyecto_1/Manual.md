@@ -1,3 +1,18 @@
+### **Universidad San Carlos de Guatemala**
+### **Facultad de Ingeniería**
+### **Escuela de Ciencias y Sistemas**
+### **Redes de Computadoras 2**
+### **Catedrático: Ing. Allan Alberto Morataya Gómez**
+### **Auxiliar: Eduardo Ixén**
+
+## **Manual Técnico - Proyecto 1**
+
+- **Estuardo Gabriel Son Mux – 202003894**
+- **Angel Eduardo Marroquín Canizales – 202003959**
+-----------
+## Topología
+![Topología](./imagenes/topologia.png)
+
 ## Capa de Distribucion
 
 ``` CMD
@@ -29,6 +44,8 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 10
 ip add 10.#.21.4 255.255.255.248
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 
 ! Configuracion de interfaz de acceso
@@ -58,6 +75,8 @@ name D
 ! Configuracion de HSRP
 int vlan 10
 ip add 10.#.21.2 255.255.255.248
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 standby version 2
 standby 10 ip 10.#.21.1
@@ -67,6 +86,8 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 20
 ip add 20.#.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 
 ! Configuracion de interfaz de acceso
@@ -96,6 +117,8 @@ name E
 ! Configuracion de HSRP
 int vlan 10
 ip add 10.#.21.3 255.255.255.248
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 standby version 2
 standby 10 ip 10.#.21.1
@@ -103,6 +126,8 @@ standby 10 ip 10.#.21.1
 ! Configuracion de interfaz vlan
 int vlan 30
 ip add 30.#.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 
 ! Configuracion de interfaz de acceso
@@ -157,16 +182,22 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 40
 ip add 40.#.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 20
 ip add 20.#.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 30
 ip add 30.#.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 ```
@@ -218,21 +249,29 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 40
 ip add 40.0.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 50
 ip add 50.0.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 60
 ip add 60.0.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 70
 ip add 70.0.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 ```
@@ -284,6 +323,8 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 40
 ip add 40.1.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
@@ -294,6 +335,8 @@ exit
 
 int vlan 61
 ip add 60.1.21.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
@@ -329,11 +372,15 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 60
 ip add 60.0.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 61
 ip add 60.1.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 ```
@@ -371,16 +418,22 @@ exit
 ! Configuracion de interfaz vlan
 int vlan 70
 ip add 70.0.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 71
 ip add 70.1.21.2 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 
 int vlan 21
 ip add 21.100.100.1 255.255.255.252
+! Para la asignacion de IP por DHCP
+ip helper-address 192.#.21.2
 no shutdown
 exit
 ```
@@ -398,10 +451,9 @@ vtp password grupo21
 vtp mode client
 
 ! Configuracion de interfaz truncal
-int range f0/1
-switchport mode trunk
-switchport trunk encapsulation dot1q
-switchport trunk allowed vlan 100,200
+interface FastEthernet0/1
+switchport access vlan #
+switchport mode access
 exit
 
 ! Configuracion de interfaz de acceso
@@ -412,3 +464,57 @@ exit
 
 
 ```
+
+## Configuración de OSPF
+```
+! Switch 8 y 12
+router ospf 21
+network 10.#.21.0 0.0.0.7 area 21
+network 192.20#.21.0 0.0.0.255 area 21
+network 192.10#.21.0 0.0.0.255 area 21
+
+! Switch 6 y 10
+router ospf 21
+network 10.#.21.0 0.0.0.7 area 21
+network 20.#.21.0 0.0.0.3 area 21
+
+! Switch 7 y 11
+router ospf 21
+network 10.#.21.0 0.0.0.7 area 21
+network 30.#.21.0 0.0.0.3 area 21
+
+! Switch 5 y 9
+router ospf 21
+network 40.#.21.0 0.0.0.3 area 21
+network 20.#.21.0 0.0.0.3 area 21
+network 30.#.21.0 0.0.0.3 area 21
+
+! Switch 1 y 4
+router ospf 21
+network 70.#.21.0 0.0.0.3 area 21
+network 60.#.21.0 0.0.0.3 area 21
+network 50.0.21.0 0.0.0.3 area 21
+network 40.#.21.0 0.0.0.3 area 21
+
+! Switch 0
+router ospf 21
+network 60.0.21.0 0.0.0.3 area 21
+network 60.1.21.0 0.0.0.3 area 21
+network 192.2.21.0 0.0.0.255 area 21
+network 192.1.21.0 0.0.0.255 area 21
+
+! Switch 2
+router ospf 21
+network 70.0.21.0 0.0.0.3 area 21
+network 70.1.21.0 0.0.0.3 area 21
+network 21.100.100.0 0.0.0.3 area 21
+
+```
+
+
+## DHCP
+Este se configuro mediante 2 servidores desde los cuales, se crearon dos interfaces que sirvieran de red predeterminada para la asignación de IP
+
+![DHCP1](./imagenes/dhcp1.png)
+
+![DHCP2](./imagenes/dhcp2.png)
