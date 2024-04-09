@@ -81,6 +81,7 @@ no shutdown
 standby version 2
 standby 10 ip 10.#.21.1
 standby 10 preempt
+standby 10 priority 150
 exit
 
 ! Configuracion de interfaz vlan
@@ -122,6 +123,7 @@ ip helper-address 192.#.21.2
 no shutdown
 standby version 2
 standby 10 ip 10.#.21.1
+standby 10 priority 140
 
 ! Configuracion de interfaz vlan
 int vlan 30
