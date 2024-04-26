@@ -1,3 +1,19 @@
+### **Universidad San Carlos de Guatemala**
+### **Facultad de Ingeniería**
+### **Escuela de Ciencias y Sistemas**
+### **Redes de Computadoras 2**
+### **Catedrático: Ing. Allan Alberto Morataya Gómez**
+### **Auxiliar: Eduardo Ixén**
+
+## **Manual Técnico - Proyecto 2**
+
+- **Estuardo Gabriel Son Mux – 202003894**
+- **Angel Eduardo Marroquín Canizales – 202003959**
+-----------
+## Topología
+![departamentos](./imagenes/info.png)
+![Topología](./imagenes/topologia.png)
+
 ## Subneting
 ### Akado: 192.168.31.0 /24
 |Nombre de Red|Subred|Gateway|Mascara de Subred|Abreviatura|
@@ -406,4 +422,46 @@ no switchport
 ip address 30.30.30.2 255.255.255.252
 no shutdown
 exit
+```
+
+### Habilitar ruteo en los switches
+```
+ip routing
+```
+
+### Configuracion OSPF
+```
+! Rostelecom
+router ospf 21
+network 192.168.71.128 0.0.0.3 area 21
+
+! MSW2
+router ospf 21
+network 192.168.71.128 0.0.0.3 area 21
+network 192.168.71.0 0.0.0.63 area 21
+network 192.168.71.64 0.0.0.63 area 21
+```
+
+### Configuracion RIP
+```
+! Yota
+router rip
+version 2
+network 192.168.41.0
+
+! MSW3
+router rip
+version 2
+network 192.168.41.0
+```
+
+### Configuracion EIGRP
+```
+! Akado
+router eigrp 21
+network 192.168.31.0
+
+! MSW1
+router eigrp 21
+network 192.168.31.0
 ```
