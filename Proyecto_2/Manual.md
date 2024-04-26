@@ -126,6 +126,13 @@ vlan 20
 name Sberbank
 exit
 
+! Access List
+
+access-list 2 deny 192.168.31.64 0.0.0.63
+access-list 2 deny 192.168.71.0 0.0.0.63
+access-list 2 deny 192.168.71.64 0.0.0.63
+access-list 2 permit any
+
 ! Configuracion LACP
 
 int range f0/2-3
@@ -140,6 +147,7 @@ exit
 
 int vlan 10
 ip address 192.168.31.1 255.255.255.192
+ip access-group 2 out
 no shutdown
 exit
 
@@ -253,6 +261,11 @@ vlan 40
 name Rosneft
 exit
 
+! Access List
+
+access-list 1 deny 192.168.31.64 0.0.0.63
+access-list 1 permit any
+
 ! Configuracion LACP
 
 int range f0/2-3
@@ -276,6 +289,7 @@ exit
 ! Interfaz de VLAN
 
 int vlan 30
+ip access-group 1 out
 ip address 192.168.41.1 255.255.255.192
 no shutdown
 exit
@@ -301,6 +315,13 @@ vlan 60
 name Navatia
 exit
 
+! Access List
+
+access-list 1 deny 192.168.31.64 0.0.0.63
+access-list 1 deny 192.168.31.0 0.0.0.63
+access-list 1 deny 192.168.41.64 0.0.0.63
+access-list 1 permit any
+
 int range f0/2-6
 switchport trunk encapsulation dot1q
 exit
@@ -309,11 +330,13 @@ exit
 
 int vlan 50
 ip address 192.168.71.1 255.255.255.192
+ip access-group 1 out
 no shutdown
 exit
 
 int vlan 60
 ip address 192.168.71.65 255.255.255.192
+ip access-group 1 out
 no shutdown
 exit
 
