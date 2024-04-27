@@ -460,12 +460,16 @@ network 192.168.71.128 0.0.0.3 area 21
 
 ! MSW2
 router ospf 21
+redistribute rip metric 200 subnets 
+redistribute eigrp 21 metric 200 subnets 
+redistribute bgp 3 metric 200 subnets 
+redistribute static metric 200 subnets
 network 192.168.71.128 0.0.0.3 area 21
 network 192.168.71.0 0.0.0.63 area 21
 network 192.168.71.64 0.0.0.63 area 21
 ```
 
-### Configuracion RIP
+### Configuracion RIP (OSPF)
 ```
 ! Yota
 router rip
@@ -473,9 +477,14 @@ version 2
 network 192.168.41.0
 
 ! MSW3
-router rip
-version 2
-network 192.168.41.0
+router ospf 21
+redistribute rip metric 200 subnets 
+redistribute eigrp 21 metric 200 subnets 
+redistribute bgp 2 metric 200 subnets 
+redistribute static metric 200 subnets 
+network 192.168.41.128 0.0.0.3 area 21
+network 192.168.41.0 0.0.0.63 area 21
+network 192.168.41.64 0.0.0.63 area 21
 ```
 
 ### Configuracion EIGRP
@@ -486,5 +495,75 @@ network 192.168.31.0
 
 ! MSW1
 router eigrp 21
+redistribute rip metric 10000 0 255 1 1500 
+redistribute ospf 21 metric 10000 100 255 1 1500 
+redistribute bgp 1 metric 10000 100 255 1 1500 
+redistribute static metric 10000 100 255 1 1500
 network 192.168.31.0
+```
+
+### Configuración BGP
+**Akado**
+```
+router bgp 1
+bgp log-neighbor-changes
+no synchronization
+neighbor 10.10.10.2 remote-as 3
+neighbor 20.20.20.2 remote-as 2
+network 10.10.10.0 mask 255.255.255.252
+network 20.20.20.0 mask 255.255.255.252
+redistribute eigrp 21 
+redistribute ospf 21 
+redistribute static 
+redistribute connected 
+
+! redistribute
+router eigrp 21
+redistribute rip metric 10000 0 255 1 1500 
+redistribute ospf 21 metric 10000 100 255 1 1500 
+redistribute bgp 1 metric 10000 100 255 1 1500 
+redistribute static metric 10000 100 255 1 1500 
+network 192.168.31.0
+```
+
+**Yota**
+```
+router bgp 2
+neighbor 30.30.30.2 remote-as 3
+neighbor 20.20.20.1 remote-as 1
+network 30.30.30.0 mask 255.255.255.252
+network 20.20.20.0 mask 255.255.255.252
+redistribute eigrp 21 
+redistribute ospf 21 
+redistribute static 
+redistribute connected
+
+! redistribute
+router ospf 21
+redistribute rip metric 200 subnets 
+redistribute eigrp 21 metric 200 subnets 
+redistribute bgp 2 metric 200 subnets 
+redistribute static metric 200 subnets 
+network 192.168.41.128 0.0.0.3 area 21
+```
+
+**Rostelecom**
+```
+router bgp 3
+neighbor 10.10.10.1 remote-as 1
+neighbor 30.30.30.1 remote-as 2
+network 10.10.10.0 mask 255.255.255.252
+network 30.30.30.0 mask 255.255.255.252
+redistribute eigrp 21 
+redistribute ospf 21 
+redistribute static 
+redistribute connected 
+
+! redistribute
+router ospf 21
+redistribute rip metric 200 subnets 
+redistribute eigrp 21 metric 200 subnets 
+redistribute bgp 3 metric 200 subnets 
+redistribute static metric 200 subnets 
+network 192.168.71.128 0.0.0.3 area 21
 ```
